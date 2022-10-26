@@ -21,8 +21,12 @@ const handleOnRemoveProduct = (productId) => {
             products && products.map(item => {
               return (
                 <div className='container__item' key={item.id}>
+                  <div className='container__discount'>
+                    <p style={{color: 'white'}}>Discount of ${item.discountPercentage}</p>
+                  </div>
                   <img src={item.thumbnail} alt={item.title} />
                       <h4>{item.title}</h4>
+                      <b>${item.price}</b>
                       <p>{item.description}</p>
                       <button
                         className={`${productList.find(pdt => pdt.id === item.id) ? 'btn_remove' : 'btn_add'}`}
