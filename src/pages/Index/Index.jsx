@@ -56,6 +56,7 @@ const Index = ({
             type="email"
             id="email"
             required
+            placeholder="Correo electronico"
             value={email}
             onChange={(e)=> setEmail(e.target.value)}
             />
@@ -69,6 +70,7 @@ const Index = ({
             className="form-control"
             type="password"
             id="password"
+            placeholder="Contraseña"
             required
             value={password}
             onChange={(e)=> setPassword(e.target.value)}

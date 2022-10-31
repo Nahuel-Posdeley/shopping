@@ -17,9 +17,7 @@ const Home = () => {
   },[])
 
   return (
-    <div>
       <ProductsList products={products} />
-    </div>
   )
 }
 
