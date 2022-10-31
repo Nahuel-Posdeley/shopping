@@ -1,19 +1,38 @@
+.menu{
+  background-color: #000;
+}
 .container__menu{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #000;
-  width: 100%;
+  width: 80%;
+  margin: auto;
   height: 7vh;
 }
+.container__menu .container__user{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 .container__menu a{
   color: #ffff;
   text-decoration: none;
-  padding: 0 6em;
+}
+.container__menu .btn__home{
+  display: flex;
+  gap: 10px;
+  font-size: 20px;
 }
 .container__menu .btn__login{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
   background-color: blue;
-  padding: 8px 26px;
+  color: #ffff;
+  padding: 0.4vmax 1vmax;
   border-radius: 5px;
 }
 .container__menu div {
@@ -31,10 +50,16 @@
 }
 .btn__cart div{
   position: absolute;
-  left: 110px;
+  left: 16px;
   border-radius: 50%;
   top: 0;
   background-color: red;
   width: 20px;
   height: 20px;
+}
+
+@media (max-width: 800px) {
+  .container__menu{
+    width: 95%;
+  }
 }

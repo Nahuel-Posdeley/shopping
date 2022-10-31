@@ -1,44 +1,51 @@
-import Axios  from "axios";
 import React , { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import { setUser } from '../../reducers/User/userSlice';
 import './style.css';
 
-const Index = () => {
+const Index = ({
+  setStateLogin,
+}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+    const [validation,setValidation] = useState(false)
+    const { dataRegistration } = useSelector(state => state.registration)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const handleSubmit = e => {
         e.preventDefault();
-        Axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(res => {
-            const users = res.data;
-            const userToLog = users.find(user => user.email === email && user.username === password)
+
+            const userToLog = dataRegistration.find(user => user.email === email && user.password === password)
             console.log(userToLog)
                 if(userToLog !== undefined){
                     console.log('Inicio')
                     dispatch(setUser({
-                        email: userToLog.email,
                         name: userToLog.name,
-                        fullName: userToLog.username,
+                        email: userToLog.email,
+                        password: userToLog.password,
                         token: Date.now()
                     }))
                     navigate('/home')
+                    swal(
+                      `¡Bienvenido(a) ${userToLog.name}!`,
+                      'Sesión iniciada correctamente.',
+                      'success'
+                    )
+                    setStateLogin(true)
                 }else{
-                    console.log('incorrecto')
-                }
-            }
-        )
+                  setValidation(true)
+                    setStateLogin(false)
+                }        
     } 
 
   return (
     <div className="section">
     <div className="login">
-      <h1>Login</h1>
+      <h1>Iniciar sesión</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="form-label" type="email">
@@ -56,7 +63,7 @@ const Index = () => {
 
         <div className="form-group">
           <label className="form-label" type="password">
-            Password
+            Contraseña
           </label>
           <input
             className="form-control"
@@ -66,12 +73,14 @@ const Index = () => {
             value={password}
             onChange={(e)=> setPassword(e.target.value)}
           />
+          {validation && <p style={{color: 'red',fontSize: 12}}>Correo electronico o contraseña que ingresaste no son validados</p>}
         </div>
         <button
           type="submit"
         >
-          Sign In
+          Iniciar sesion
         </button>
+        <Link className="btn__registration" to='/registration'>Registrarse</Link>
       </form>
     </div>
   </div>

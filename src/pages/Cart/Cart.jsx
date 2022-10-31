@@ -1,24 +1,23 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { removeProductToCart } from '../reducers/Cart/cartSlice';
+import { removeProductToCart } from '../../reducers/Cart/cartSlice';
 import './style.css';
-
+import { BsFillTrashFill } from 'react-icons/bs';
 const Cart = () => {
     const dispatch = useDispatch();
     const { productList } = useSelector(state => state.cart)
-    console.log(productList)
     const handleRemoveProduct = (productId) => dispatch(removeProductToCart(productId))
     return (
     <div>
-        <h1>Cart</h1>
+        <h1 className='title__cart'>Carrito de compras</h1>
         <table>
             <thead>
              <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Actions</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoria</th>
+                <th>Acciones</th>
              </tr>
             </thead>
             <tbody>
@@ -31,11 +30,10 @@ const Cart = () => {
                                 <td> ${product.price}</td>
                                 <td>{product.category}</td>
                                 <td>
-                                    <button
+                                    <BsFillTrashFill
+                                        size={20}
                                         onClick={()=> handleRemoveProduct(product.id)}
-                                    >
-                                        Remove
-                                    </button>
+                                    />
                                 </td>
                             </tr>
                         )
@@ -43,6 +41,12 @@ const Cart = () => {
                 }
             </tbody>
         </table>
+        {
+            productList.length <= 0 && <div className='container__cart__empty'>
+            <h3>Tu carrito está vacío</h3>
+            <p>¿No sabés qué comprar? ¡Miles de productos te esperan!</p>
+        </div> 
+        }
     </div>
   )
 }
